@@ -7,4 +7,5 @@ import java.util.List;
 public interface ReservationRepository extends PagingAndSortingRepository<Reservation, Long>{
     List<Reservation> findByHospitalId(String HospitalId);
     Reservation findByScreeningId(Long ScreeningId);
+    Reservation findByCustNm(String custNm);
 }
