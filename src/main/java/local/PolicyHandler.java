@@ -70,7 +70,7 @@ public class PolicyHandler{
         try {
             if (alarmRegistered.isMe()) {
                 System.out.println("##### 고객 알림발송으로 인한 상태 변경: " + alarmRegistered.toJson());
-                Reservation temp = new Reservation();
+                Reservation temp = reservationRepository.findByScreeningId(alarmRegistered.getId());
                 temp.setStatus("ALARM_REGISTERED");
                 temp.setCustNm(alarmRegistered.getReceiver());
                 reservationRepository.save(temp);
