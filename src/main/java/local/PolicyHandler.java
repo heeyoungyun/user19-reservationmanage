@@ -65,4 +65,19 @@ public class PolicyHandler{
         }
     }
 
+    @StreamListener(KafkaProcessor.INPUT)
+    public void whenAlarmRegistered_then_CREATE_1 (@Payload AlarmRegistered alarmRegistered) {
+        try {
+            if (alarmRegistered.isMe()) {
+                System.out.println("##### 고객 알림발송으로 인한 상태 변경: " + alarmRegistered.toJson());
+                Reservation temp = new Reservation();
+                temp.setStatus("ALARM_REGISTERED");
+                temp.setCustNm(alarmRegistered.getReceiver());
+                reservationRepository.save(temp);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
